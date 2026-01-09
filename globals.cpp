@@ -1,0 +1,6 @@
+#include "globals.h"
+
+int screenWidth = 1600;
+int screenHeight = 800;
+bool running = true;
+int simSpeed = 1;
