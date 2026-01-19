@@ -22,16 +22,20 @@ int main() {
     auto currentTime = std::chrono::high_resolution_clock::now();
     auto lastTime = std::chrono::high_resolution_clock::now();
     auto timeDifference = currentTime - lastTime;
+    long long nanoTimeDifference = std::chrono::duration_cast<std::chrono::nanoseconds>(timeDifference).count();
     long long deltaTime = 0;
+    
     int drawCount = 0;
     long long timer = 0;
+    int FPSDisplayValue = 0;
 
     while (!WindowShouldClose()) {
         
         currentTime = std::chrono::high_resolution_clock::now();
         timeDifference = currentTime - lastTime;
-        deltaTime += std::chrono::duration_cast<std::chrono::nanoseconds>(timeDifference).count();
-        timer += deltaTime;
+        nanoTimeDifference = std::chrono::duration_cast<std::chrono::nanoseconds>(timeDifference).count();
+        deltaTime += nanoTimeDifference;
+        timer += nanoTimeDifference;
         lastTime = currentTime;
         
         if (deltaTime/drawInterval >= 1) {
@@ -54,12 +58,14 @@ int main() {
                 UI.draw();
                 level.draw();
             EndDrawing();
-            
+
+            DrawText(TextFormat("FPS = %i", FPSDisplayValue), screenWidth - 200, 50, 40, Color{ 255, 255, 255, 255 });
             deltaTime -= drawInterval;
             drawCount++;
         }
         if (timer >= 1000000000) {
             std::cout << "FPS = " << drawCount << std::endl;
+            FPSDisplayValue = drawCount;
             timer = 0;
             drawCount = 0;
         }
