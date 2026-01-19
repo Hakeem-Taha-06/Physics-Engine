@@ -15,7 +15,7 @@ public:
 	Vector2 getVelocity();
 	ColliderComponent* getCollider();
 	virtual void collide(Vector2 normal);
-	virtual void update();
+	virtual void update(long long dt);
 	virtual void draw();
 protected:
 

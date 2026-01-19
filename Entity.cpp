@@ -9,7 +9,7 @@ Entity::Entity(float x, float y, float velocityX, float velocityY, float mass) :
     this->mass = mass;
 }
 
-void Entity::update() {
+void Entity::update(long long dt) {
     applyGravity();
     applySpeed();
     handleWallCollisions();

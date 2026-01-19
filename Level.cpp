@@ -14,11 +14,12 @@ Level::Level(std::string levelName) {
 	}
 }
 
-void Level::update() {
+void Level::update(long long dt) {
+	
 	for(auto& entity : entities){
-		entity->update();
+		entity->update(dt);
 	}
-	physics.update(entities);
+	physics.update(entities, dt);
 }
 
 void Level::draw() {

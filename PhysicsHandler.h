@@ -7,6 +7,6 @@ class PhysicsHandler
 
 {
 public:
-	void update(std::vector<std::unique_ptr<Entity>>& entities);
+	void update(std::vector<std::unique_ptr<Entity>>& entities, long long dt);
 };
 

@@ -1,5 +1,6 @@
 #include "globals.h"
 
+int FPS = 60;
 int screenWidth = 1600;
 int screenHeight = 800;
 bool running = true;

@@ -143,7 +143,6 @@
     <ClInclude Include="globals.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="PhysicsHandler.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

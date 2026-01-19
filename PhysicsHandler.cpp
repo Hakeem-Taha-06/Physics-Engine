@@ -1,6 +1,6 @@
 #include "PhysicsHandler.h"
 
-void PhysicsHandler::update(std::vector<std::unique_ptr<Entity>>& entities) {
+void PhysicsHandler::update(std::vector<std::unique_ptr<Entity>>& entities, long long dt) {
 	bool isCollided = false;
 	
 	for (auto& entityA : entities) {
