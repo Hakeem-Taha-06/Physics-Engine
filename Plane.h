@@ -5,12 +5,13 @@
 class Plane : public Entity
 {
 public:
-	Plane(float centerX , float centerY, float length, float angle, Color color);
-	void update(long long dt) override;
+	Plane(float centerX , float centerY, float length, float angle, float angularVelocity, Color color);
+	void update(float dt) override;
 	void draw() override;
 
 private:
 	float length;
 	float angle;
+	float angularVelocity;
 };
 

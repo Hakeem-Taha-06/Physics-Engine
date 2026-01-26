@@ -5,18 +5,18 @@
 
 Level::Level(std::string levelName) {
 	if (levelName.empty()) {
-		this->entities.emplace_back(std::make_unique<Ball>(100, 100, 6, 6, 1, 30, WHITE));
-		this->entities.emplace_back(std::make_unique<Ball>(200, 100, 6, -12, 1, 30, WHITE));
-		this->entities.emplace_back(std::make_unique<Ball>(screenWidth-100, 100, -8, 5, 1, 30, WHITE));
-		this->entities.emplace_back(std::make_unique<Ball>(screenWidth-200, 100, -8, -18, 1, 30, WHITE));
-		this->entities.emplace_back(std::make_unique<Plane>(300, 400, 600, 45, WHITE));
+		this->entities.emplace_back(std::make_unique<Ball>(100, 100, 600, 600, 1, 30, WHITE));
+		this->entities.emplace_back(std::make_unique<Ball>(200, 100, 600, -1200, 1, 30, WHITE));
+		this->entities.emplace_back(std::make_unique<Ball>(screenWidth-100, 100, -800, 500, 1, 30, WHITE));
+		this->entities.emplace_back(std::make_unique<Ball>(screenWidth-200, 100, -800, -1800, 1, 30, WHITE));
+		this->entities.emplace_back(std::make_unique<Plane>(300, 400, 600, 45, 200, WHITE));
 	}
 	else {
 		std::cout << "level loaded from 'levels\\" << levelName << "'" << std::endl;
 	}
 }
 
-void Level::update(long long dt) {
+void Level::update(float dt) {
 	
 	for(auto& entity : entities){
 		entity->update(dt);

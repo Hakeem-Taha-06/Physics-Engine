@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "Level.h"
 #include "UserInterface.h"
+#include "Timer.h"
 
 using namespace std;
 
@@ -15,59 +16,50 @@ int main() {
 
     Level level = Level("");
     UserInterface UI = UserInterface();
+    Timer timer = Timer();
    
     InitWindow(screenWidth, screenHeight, "My first RAYLIB program!");
     
-    long long drawInterval = 1000000000 / FPS;
-    auto currentTime = std::chrono::high_resolution_clock::now();
-    auto lastTime = std::chrono::high_resolution_clock::now();
-    auto timeDifference = currentTime - lastTime;
-    long long deltaTime = std::chrono::duration_cast<std::chrono::nanoseconds>(timeDifference).count();
-    long long accumulator = 0;
-    
+    float fixedFrameInterval = 1.0f/60.0f;
+    float deltaTime = 0;
     int drawCount = 0;
-    long long timer = 0;
+    float accumulator = 0;
+    float FPStimer = 0;
     int FPSDisplayValue = 0;
 
     while (!WindowShouldClose()) {
-        
-        currentTime = std::chrono::high_resolution_clock::now();
-        timeDifference = currentTime - lastTime;
-        deltaTime = std::chrono::duration_cast<std::chrono::nanoseconds>(timeDifference).count();
+            
+        deltaTime = timer.tick();
         accumulator += deltaTime;
-        timer += deltaTime;
-        lastTime = currentTime;
-        
-        if (accumulator >= drawInterval) {
+        FPStimer += deltaTime;
+        if (accumulator >= fixedFrameInterval) {
             Vector2 mousePos = GetMousePosition();
             bool mousePressed = IsMouseButtonPressed(0);
 
             if (running) {
-                for (int i = 0; i < simSpeed; i++)
-                    level.update(deltaTime);
+                level.update(fixedFrameInterval*timeScale);
             }
             UI.update(mousePos, mousePressed);
 
             //will move out of here later when i implement an input handler
-            if (IsKeyPressed(KEY_SLASH)) simSpeed++;
-            if (IsKeyPressed(KEY_APOSTROPHE)) simSpeed--;
-            
+            if (IsKeyPressed(KEY_SLASH)) timeScale++;
+            if (IsKeyPressed(KEY_APOSTROPHE)) timeScale--;
+
             BeginDrawing();
-                ClearBackground(Dark_Green);
-                UI.draw();
-                level.draw();
+            ClearBackground(Dark_Green);
+            UI.draw();
+            level.draw();
             EndDrawing();
 
             DrawText(TextFormat("FPS = %i", FPSDisplayValue), screenWidth - 200, 50, 40, WHITE);
-            accumulator -= drawInterval;
             drawCount++;
+            accumulator -= fixedFrameInterval;
         }
-        if (timer >= 1000000000) {
+        
+        if (FPStimer >= 1.0f) {
             std::cout << "FPS = " << drawCount << std::endl;
-            std::cout << "deltaTime = " << deltaTime << std::endl;
-            std::cout << "accumulator = " << accumulator << std::endl;
             FPSDisplayValue = drawCount;
-            timer = 0;
+            FPStimer = 0;
             drawCount = 0;
         }
         

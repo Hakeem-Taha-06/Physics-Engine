@@ -134,6 +134,7 @@
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="PhysicsHandler.cpp" />
     <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +148,7 @@
     <ClInclude Include="LineCollider.h" />
     <ClInclude Include="PhysicsHandler.h" />
     <ClInclude Include="Plane.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

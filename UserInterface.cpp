@@ -10,7 +10,7 @@ void UserInterface::draw() {
 	for (std::unique_ptr<Button>& button: buttons) {
 		button->draw();
 	}
-	DrawText(TextFormat("Simulation Speed : %i", simSpeed), 50, 50, 40, Color{ 255,255,255,255 });
+	DrawText(TextFormat("Simulation Speed : %i", timeScale), 50, 50, 40, Color{ 255,255,255,255 });
 }
 
 void UserInterface::update(Vector2 mousePos, bool pressed) {
@@ -31,11 +31,11 @@ void stop() {
 }
 
 void speedUp() {
-	simSpeed++;
+	timeScale++;
 }
 
 void speedDown() {
-	simSpeed--;
+	timeScale--;
 }
 
 void UserInterface::init() {

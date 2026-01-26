@@ -2,14 +2,15 @@
 #include "globals.h"
 
 Plane::Plane(float centerX, float centerY,
-			float length, float angle, Color color) : Entity(centerX, centerY, 0, 0, 0, color){
+			float length, float angle, float angularVelocity, Color color) : Entity(centerX, centerY, 0, 0, 0, color){
 	this->length = length;
 	this->angle = angle;
+	this->angularVelocity = angularVelocity;
 	this->collider = std::make_unique<LineCollider>(centerX, centerY, length, angle);
 }
 
-void Plane::update(long long dt) {
-	this->angle += 1;
+void Plane::update(float dt) {
+	angle += angularVelocity*dt;
 }
 
 void Plane::draw() {

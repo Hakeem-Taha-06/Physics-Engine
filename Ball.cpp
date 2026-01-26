@@ -9,9 +9,9 @@ Ball::Ball(float x, float y,
     collider = std::make_unique<CircleCollider>(x, y, radius);
 }
 
-void Ball::update(long long dt) {
-    applyGravity();
-    applySpeed();
+void Ball::update(float dt) {
+    applyGravity(dt);
+    applySpeed(dt);
     handleWallCollisions();
     this->getCollider()->setPos(position);
 }
@@ -19,7 +19,7 @@ void Ball::update(long long dt) {
 void Ball::draw() {
     DrawCircle(position.x, position.y, radius, color);
     //Debug velocity line visualization
-    Vector2 lineEnd = Vector2Add(position, Vector2Scale(velocity, 5));
+    Vector2 lineEnd = Vector2Add(position, Vector2Scale(velocity, 0.02));
     DrawLineEx(position, lineEnd, 15, Color{ 255, 0, 0, 128 });
 }
 

@@ -15,13 +15,13 @@ public:
 	Vector2 getVelocity();
 	ColliderComponent* getCollider();
 	virtual void collide(Vector2 normal);
-	virtual void update(long long dt);
+	virtual void update(float dt);
 	virtual void draw();
 protected:
 
 	virtual void handleWallCollisions();
-	virtual void applySpeed();
-	virtual void applyGravity();
+	virtual void applySpeed(float dt);
+	virtual void applyGravity(float dt);
 	Vector2 position;
 	Vector2 velocity;
 	Color color;

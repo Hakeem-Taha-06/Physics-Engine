@@ -10,17 +10,17 @@ Entity::Entity(float x, float y, float velocityX, float velocityY, float mass, C
     this->color = color;
 }
 
-void Entity::update(long long dt) {
+void Entity::update(float dt) {
     
 }
 
-void Entity::applySpeed() {
-    position.x += velocity.x;
-    position.y += velocity.y;
+void Entity::applySpeed(float dt) {
+    position.x += velocity.x*dt;
+    position.y += velocity.y*dt;
 }
 
-void Entity::applyGravity() {
-    velocity.y += 1;
+void Entity::applyGravity(float dt) {
+    velocity.y += 2900*dt;
 }
 
 void Entity::handleWallCollisions() {

@@ -8,7 +8,7 @@ class Level
 {
 public:
 	Level(std::string levelName);
-	void update(long long dt);
+	void update(float dt);
 	void draw();
 private:
 	std::vector<std::unique_ptr<Entity>> entities;
