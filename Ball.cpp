@@ -1,17 +1,29 @@
 #include "Ball.h"
 
-Ball::Ball(float x, float y, float velocityX, float velocityY, float mass, float radius) : Entity(x, y, velocityX, velocityY, mass){
+Ball::Ball(float x, float y, 
+            float velocityX, float velocityY, 
+            float mass, float radius, 
+            Color color) : Entity(x, y, velocityX, velocityY, mass, color){
+
     this->radius = radius;
     collider = std::make_unique<CircleCollider>(x, y, radius);
 }
 
+void Ball::update(long long dt) {
+    applyGravity();
+    applySpeed();
+    handleWallCollisions();
+    this->getCollider()->setPos(position);
+}
+
 void Ball::draw() {
-    DrawCircle(position.x, position.y, radius, Color{ 255, 255, 255, 255 });
+    DrawCircle(position.x, position.y, radius, color);
     //Debug velocity line visualization
     Vector2 lineEnd = Vector2Add(position, Vector2Scale(velocity, 5));
     DrawLineEx(position, lineEnd, 15, Color{ 255, 0, 0, 128 });
 }
 
+//should be in the physics handler
 void Ball::handleWallCollisions() {
     if (position.x + radius >= screenWidth)
     {

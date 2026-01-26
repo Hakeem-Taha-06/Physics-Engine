@@ -3,17 +3,15 @@
 #include <iostream>
 
 
-Entity::Entity(float x, float y, float velocityX, float velocityY, float mass) : collider(nullptr) {
+Entity::Entity(float x, float y, float velocityX, float velocityY, float mass, Color color) : collider(nullptr) {
     this->position = { x, y };
     this->velocity = {velocityX, velocityY};
     this->mass = mass;
+    this->color = color;
 }
 
 void Entity::update(long long dt) {
-    applyGravity();
-    applySpeed();
-    handleWallCollisions();
-    this->getCollider()->setPos(position);
+    
 }
 
 void Entity::applySpeed() {

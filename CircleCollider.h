@@ -5,7 +5,7 @@ class CircleCollider : public ColliderComponent
 {
 public:
 	CircleCollider(float x, float y, float radius);
-	bool checkCircleCollisions(ColliderComponent* collider) override;
+	bool checkCollisions(ColliderComponent* collider) override;
 	float getRadius();
 private:
 	float radius;

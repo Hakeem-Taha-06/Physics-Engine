@@ -22,8 +22,8 @@ int main() {
     auto currentTime = std::chrono::high_resolution_clock::now();
     auto lastTime = std::chrono::high_resolution_clock::now();
     auto timeDifference = currentTime - lastTime;
-    long long nanoTimeDifference = std::chrono::duration_cast<std::chrono::nanoseconds>(timeDifference).count();
-    long long deltaTime = 0;
+    long long deltaTime = std::chrono::duration_cast<std::chrono::nanoseconds>(timeDifference).count();
+    long long accumulator = 0;
     
     int drawCount = 0;
     long long timer = 0;
@@ -33,15 +33,14 @@ int main() {
         
         currentTime = std::chrono::high_resolution_clock::now();
         timeDifference = currentTime - lastTime;
-        nanoTimeDifference = std::chrono::duration_cast<std::chrono::nanoseconds>(timeDifference).count();
-        deltaTime += nanoTimeDifference;
-        timer += nanoTimeDifference;
+        deltaTime = std::chrono::duration_cast<std::chrono::nanoseconds>(timeDifference).count();
+        accumulator += deltaTime;
+        timer += deltaTime;
         lastTime = currentTime;
         
-        if (deltaTime/drawInterval >= 1) {
+        if (accumulator >= drawInterval) {
             Vector2 mousePos = GetMousePosition();
             bool mousePressed = IsMouseButtonPressed(0);
-
 
             if (running) {
                 for (int i = 0; i < simSpeed; i++)
@@ -59,17 +58,18 @@ int main() {
                 level.draw();
             EndDrawing();
 
-            DrawText(TextFormat("FPS = %i", FPSDisplayValue), screenWidth - 200, 50, 40, Color{ 255, 255, 255, 255 });
-            deltaTime -= drawInterval;
+            DrawText(TextFormat("FPS = %i", FPSDisplayValue), screenWidth - 200, 50, 40, WHITE);
+            accumulator -= drawInterval;
             drawCount++;
         }
         if (timer >= 1000000000) {
             std::cout << "FPS = " << drawCount << std::endl;
+            std::cout << "deltaTime = " << deltaTime << std::endl;
+            std::cout << "accumulator = " << accumulator << std::endl;
             FPSDisplayValue = drawCount;
             timer = 0;
             drawCount = 0;
         }
-        
         
     }
 
