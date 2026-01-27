@@ -11,8 +11,7 @@ void PhysicsHandler::update(std::vector<std::unique_ptr<Entity>>& entities, long
 				isCollided = colliderA->checkCollisions(colliderB);
 			}
 			if(isCollided){
-				Vector2 normal = Vector2Normalize(Vector2Subtract(entityA->getPos(), entityB->getPos()));
-				entityA->collide(normal);
+				entityA->collide(entityB.get());
 			}
 		}
 	}

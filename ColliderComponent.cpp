@@ -2,10 +2,12 @@
 
 ColliderComponent::ColliderComponent(){
 	this->position = { 0,0 };
+	this->type = Circle; //default type
 }
 
 ColliderComponent::ColliderComponent(float x, float y) {
 	this->position = { x, y };
+	this->type = Circle; //default type
 }
 
 bool ColliderComponent::checkCollisions(ColliderComponent* collider) { return false; };

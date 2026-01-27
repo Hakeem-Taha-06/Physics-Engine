@@ -6,6 +6,7 @@ Plane::Plane(float centerX, float centerY,
 	this->length = length;
 	this->angle = angle;
 	this->angularVelocity = angularVelocity;
+	this->type = PlaneType;
 	this->collider = std::make_unique<LineCollider>(centerX, centerY, length, angle);
 }
 

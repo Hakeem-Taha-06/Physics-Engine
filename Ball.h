@@ -9,6 +9,7 @@ public:
 	Ball(float x, float y, float velocityX, float velocityY, float mass, float radius, Color color);
 	void draw() override;
 	void update(float dt) override;
+	void collide(Entity* entity) override;
 	void handleWallCollisions() override;
 	float getRadius();
 private:

@@ -8,6 +8,7 @@ Entity::Entity(float x, float y, float velocityX, float velocityY, float mass, C
     this->velocity = {velocityX, velocityY};
     this->mass = mass;
     this->color = color;
+    this->type = BallType; //default type
 }
 
 void Entity::update(float dt) {
@@ -20,18 +21,15 @@ void Entity::applySpeed(float dt) {
 }
 
 void Entity::applyGravity(float dt) {
-    velocity.y += 2900*dt;
+    velocity.y += GRAVITY*dt;
 }
 
 void Entity::handleWallCollisions() {
- 
+
 }
 
-void Entity::collide(Vector2 normal) {
-    Vector2 newVelocity = Vector2Subtract(
-        velocity,
-        Vector2Scale(normal, 2*Vector2DotProduct(velocity, normal)));
-    velocity = Vector2Scale(newVelocity, 0.9);
+void Entity::collide(Entity* entity) {
+    
 }
 
 void Entity::draw() {
@@ -49,6 +47,10 @@ float Entity::getX() { return position.x; }
 float Entity::getY() { return position.y; }
 float Entity::getVelocityX() { return velocity.x; }
 float Entity::getVelocityY() { return velocity.y; }
+float Entity::getMass() { return mass; }
 Vector2 Entity::getPos() { return position; }
 Vector2 Entity::getVelocity() { return velocity; }
 ColliderComponent* Entity::getCollider() { return collider.get(); }
+enum EntityType Entity::getType() { return type; }
+
+void Entity::setVelocity(Vector2 newVelocity) { velocity = newVelocity; }
