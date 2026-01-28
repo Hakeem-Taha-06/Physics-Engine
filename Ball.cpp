@@ -22,19 +22,29 @@ void Ball::draw() {
     //Debug velocity line visualization
     Vector2 lineEnd = Vector2Add(position, Vector2Scale(velocity, 0.02));
     DrawLineEx(position, lineEnd, 15, Color{ 255, 0, 0, 128 });
+    DrawText(TextFormat("(%f, %f)", velocity.x, velocity.y), position.x, position.y, 20, WHITE);
 }
 
 void Ball::collide(Entity* entity) {
     switch (entity->getCollider()->getType()) {
     case Circle:
+        std::cout << "_________________________________________" << std::endl;
+        std::cout << "BALL1: " << radius << std::endl;
+        std::cout << "BALL2: " << entity->getCollider()->getRadius() << std::endl;
+        
         Vector2 n = Vector2Subtract(entity->getPos(), position);
         Vector2 un = Vector2Normalize(n);
         Vector2 ut{ -un.y, un.x };
+
+        std::cout << "NORMAL: " << "(" << un.x << ", " << un.y << ")" << std::endl;
 
         Vector2 v1 = velocity;
         Vector2 v2 = entity->getVelocity();
         float m1 = mass;
         float m2 = entity->getMass();
+
+        std::cout << "Starting v1: " << "(" << v1.x << ", " << v1.y << ")" << std::endl;
+        std::cout << "Starting v2: " << "(" << v2.x << ", " << v2.y << ")" << std::endl;
 
         float v1n = Vector2DotProduct(v1, un);
         float v1t = Vector2DotProduct(v1, ut);
@@ -52,14 +62,14 @@ void Ball::collide(Entity* entity) {
         Vector2 final_v2 = Vector2Add(Vector2Scale(un, final_v2n),
                                       Vector2Scale(ut, final_v2t));
 
+        
+        std::cout << "Final v1: " << "(" << final_v1.x << ", " << final_v1.y << ")" << std::endl;
+        std::cout << "Final v2: " << "(" << final_v2.x << ", " << final_v2.y << ")" << std::endl;
         std::cout << "_________________________________________" << std::endl;
-        std::cout << "BALL: " << this << std::endl;
-        std::cout << "NORMAL: " << "(" << un.x << ", " << un.y << ")" << std::endl;
-        std::cout << final_v1.x << ", " << final_v1.y << std::endl;
-        std::cout << final_v2.x << ", " << final_v2.y << std::endl;
-        std::cout << "_________________________________________" << std::endl;
-
+        
+        setPos(Vector2Subtract(entity->getPos(), Vector2Scale(un, getRadius() + entity->getCollider()->getRadius())));
         setVelocity(final_v1);
+        entity->setVelocity(final_v2);
     }
     
 }

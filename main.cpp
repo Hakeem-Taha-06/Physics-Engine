@@ -20,7 +20,7 @@ int main() {
    
     InitWindow(screenWidth, screenHeight, "My first RAYLIB program!");
     
-    float fixedFrameInterval = 1.0f/60.0f;
+    float fixedFrameInterval = 1.0f/120.0f;
     float deltaTime = 0;
     int drawCount = 0;
     float accumulator = 0;
@@ -37,7 +37,7 @@ int main() {
             bool mousePressed = IsMouseButtonPressed(0);
 
             if (running) {
-                level.update(fixedFrameInterval*timeScale);
+                level.update(fixedFrameInterval*timeScale*0.1);
             }
             UI.update(mousePos, mousePressed);
 

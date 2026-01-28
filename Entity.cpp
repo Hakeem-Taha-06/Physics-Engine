@@ -54,3 +54,4 @@ ColliderComponent* Entity::getCollider() { return collider.get(); }
 enum EntityType Entity::getType() { return type; }
 
 void Entity::setVelocity(Vector2 newVelocity) { velocity = newVelocity; }
+void Entity::setPos(Vector2 newPos) { position = newPos; }

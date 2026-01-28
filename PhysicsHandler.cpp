@@ -6,13 +6,14 @@ void PhysicsHandler::update(std::vector<std::unique_ptr<Entity>>& entities, long
 		bool isCollided = false;
 		ColliderComponent* colliderA = entityA->getCollider();
 		for (auto& entityB : entities) {
-			if (entityA != entityB) {
+			if (entityA > entityB) {
 				ColliderComponent* colliderB = entityB->getCollider();
 				isCollided = colliderA->checkCollisions(colliderB);
+				if (isCollided) {
+					entityA->collide(entityB.get());
+				}
 			}
-			if(isCollided){
-				entityA->collide(entityB.get());
-			}
+			
 		}
 	}
 };

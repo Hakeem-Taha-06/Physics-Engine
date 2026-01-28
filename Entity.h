@@ -27,6 +27,7 @@ public:
 	enum EntityType getType();
 
 	void setVelocity(Vector2 newVelocity);
+	void setPos(Vector2 newPos);
 protected:
 
 	virtual void handleWallCollisions();
